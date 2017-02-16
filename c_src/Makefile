@@ -157,21 +157,17 @@ test-build:: $(C_SRC_OUTPUT_FILE)
 $(LIBSODIUM_DIR):
 	$(verbose) if [ ! -f $(LIBSODIUM_DIR)/autogen.sh ]; then \
 		git clone -n $(LIBSODIUM_GIT) $(LIBSODIUM_DIR) && \
-		(cd $(LIBSODIUM_DIR) && git checkout -q $(LIBSODIUM_VSN)); \
+		(cd $(LIBSODIUM_DIR) && git checkout -q stable); \
 	else \
 		true; \
 	fi
 
 $(LIBSODIUM_CONFIGURE_FILE): $(LIBSODIUM_DIR)
-	$(verbose) if [ ! -f $(LIBSODIUM_CONFIGURE_FILE) ]; then \
-		(cd $(LIBSODIUM_DIR) && chmod +x autogen.sh && ./autogen.sh); \
-	else \
-		true; \
-	fi
+	true
 
 $(LIBSODIUM_MAKE_FILE): $(LIBSODIUM_CONFIGURE_FILE)
 	$(verbose) if [ ! -f $(LIBSODIUM_MAKE_FILE) ]; then \
-		(cd $(LIBSODIUM_DIR) && ./configure --disable-pie --enable-opt); \
+		(cd $(LIBSODIUM_DIR) && ./configure --disable-pie --enable-opt --host arm-none-eabi); \
 	else \
 		true; \
 	fi
