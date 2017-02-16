@@ -171,7 +171,7 @@ $(LIBSODIUM_CONFIGURE_FILE): $(LIBSODIUM_DIR)
 
 $(LIBSODIUM_MAKE_FILE): $(LIBSODIUM_CONFIGURE_FILE)
 	$(verbose) if [ ! -f $(LIBSODIUM_MAKE_FILE) ]; then \
-		(cd $(LIBSODIUM_DIR) && ./configure --disable-pie --enable-opt); \
+		(cd $(LIBSODIUM_DIR) && ./configure --disable-pie --enable-opt --host arm-linux-gnueabihf); \
 	else \
 		true; \
 	fi
